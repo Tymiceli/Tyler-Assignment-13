@@ -1,7 +1,6 @@
 package com.coderscampus.assignment13.web;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.coderscampus.assignment13.domain.Address;
 import com.coderscampus.assignment13.domain.User;
 import com.coderscampus.assignment13.service.UserService;
 
@@ -52,6 +52,8 @@ public class UserController {
 		User user = userService.findById(userId);
 		model.put("users", Arrays.asList(user));
 		model.put("user", user);
+		
+		
 		return "users";
 	}
 	
@@ -67,4 +69,9 @@ public class UserController {
 		return "redirect:/users";
 	}
 	
+	@GetMapping("users/{userId}/accounts/{accountId}")
+	public String getAccountsFromUser() {
+		
+		return "accounts";
+	}
 }
