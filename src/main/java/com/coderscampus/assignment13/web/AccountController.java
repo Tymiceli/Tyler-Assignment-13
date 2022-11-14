@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.coderscampus.assignment13.domain.Account;
 import com.coderscampus.assignment13.domain.User;
 import com.coderscampus.assignment13.service.AccountService;
+import com.coderscampus.assignment13.service.UserService;
 
 @Controller
 public class AccountController {
 	
 	@Autowired
 	private AccountService accountService;
-	
+	@Autowired
+	private UserService userService;
 	
 	@PostMapping("users/{userId}/accounts")
 	public String postOneAccount(@PathVariable Long userId) {
@@ -24,6 +26,7 @@ public class AccountController {
 //		account.setAccountName("Account" + user.getAccounts().size() +1);
 		
 		accountService.saveAccount(userId);
+		System.out.println(userService.findById(userId).getAccounts().size());
 		return "redirect:/users/"+userId;
 	}
 
