@@ -3,8 +3,10 @@ package com.coderscampus.assignment13.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,11 +43,17 @@ public class Account {
 	public void setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
 	}
-	@ManyToMany(mappedBy = "accounts")
+	@ManyToMany(mappedBy = "accounts", cascade = CascadeType.PERSIST)
 	public List<User> getUsers() {
 		return users;
 	}
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
+	@Override
+	public String toString() {
+		return "Account [accountId=" + accountId + ", accountName=" + accountName + ", transactions=" + transactions
+				+ ", users=" + users + "]";
+	}
+	
 }

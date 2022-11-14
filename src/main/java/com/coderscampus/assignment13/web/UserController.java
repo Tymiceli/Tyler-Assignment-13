@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.coderscampus.assignment13.domain.Address;
 import com.coderscampus.assignment13.domain.User;
 import com.coderscampus.assignment13.service.UserService;
 
@@ -69,9 +68,4 @@ public class UserController {
 		return "redirect:/users";
 	}
 	
-	@GetMapping("users/{userId}/accounts/{accountId}")
-	public String getAccountsFromUser() {
-		
-		return "accounts";
-	}
 }
