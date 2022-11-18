@@ -55,13 +55,7 @@ public class UserService {
 	}
 
 	public User saveUser(User user) {
-//		Account account = new Account();
-//		if (user.getAccounts() == null) {
-//			
-//		}
-		if (user.getAccounts().size() < 1) {
-			System.out.println("ITS EMPTY");
-		}
+
 		if (user.getAddress() == null) {
 			Address address = new Address();
 
@@ -70,17 +64,17 @@ public class UserService {
 			addressRepo.save(address);
 		}
 		if (user.getAddress().getUser() == null) {
-//			Address address = new Address();
 			user.getAddress().setUser(user);
 			user.getAddress().setUserId(user.getUserId());
 
 		}
-//		System.out.println(user.getAccounts().get(0).toString());
 		return userRepo.save(user);
 	}
 
 	public void delete(Long userId) {
-		userRepo.deleteById(userId);
+		Optional<User> user = userRepo.findById(userId);
+
+		userRepo.delete(user.get());
 	}
 
 	public Account findAccountById(Long accountId) {

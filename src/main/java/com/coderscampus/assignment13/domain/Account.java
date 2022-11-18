@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +42,7 @@ public class Account {
 	public void setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
 	}
-	@ManyToMany(mappedBy = "accounts", cascade = CascadeType.PERSIST)
+	@ManyToMany(mappedBy = "accounts", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	public List<User> getUsers() {
 		return users;
 	}

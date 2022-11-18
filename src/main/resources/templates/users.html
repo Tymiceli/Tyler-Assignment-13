@@ -39,7 +39,8 @@
 				</div>
 				<br/>
 				<div>
-					<input type="submit" value="Update User Account" />
+					<input type="hidden" th:field="${user.accounts}"/>
+					<input type="submit" value="Update User Account"/>
 				</div>
 			</form>
 			<form th:action="@{/users/{userId}/delete(userId=${user.userId})}" method="post">

@@ -12,35 +12,34 @@ import com.coderscampus.assignment13.repository.UserRepository;
 
 @Service
 public class AccountService {
-	
+
 	@Autowired
 	AccountRepository accountRepo;
 	@Autowired
 	private UserService userService;
 	@Autowired
 	UserRepository userRepo;
-	
+
 	public Account saveAccount(Long userId) {
-		Account account = new Account();
 		User user = userService.findById(userId);
-		
-		account.getUsers().add(user);
-		
-		
+
+		Account account = new Account();
 		user.getAccounts().add(account);
-		
-		account.setAccountName("Account #"+user.getAccounts().size());
-		System.out.println("ACCOUNT_ID: "+account.getAccountId());
-		
+		account.getUsers().add(user);
+		account.setAccountName("Account #" + user.getAccounts().size());
+
 		return accountRepo.save(account);
-		
 	}
 
 	public Account findAccountById(Long accountId) {
-		
+
 		Optional<Account> account = accountRepo.findById(accountId);
-		
+
 		return account.orElse(new Account());
+	}
+
+	public void saveAccount(Account account) {
+		accountRepo.save(account);
 	}
 
 }

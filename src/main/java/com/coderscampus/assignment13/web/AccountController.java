@@ -22,9 +22,7 @@ public class AccountController {
 	
 	@PostMapping("users/{userId}/accounts")
 	public String postOneAccount(@PathVariable Long userId) {
-//		Account account = new Account();
-//		account.setAccountName("Account" + user.getAccounts().size() +1);
-		
+
 		accountService.saveAccount(userId);
 		System.out.println(userService.findById(userId).getAccounts().size());
 		return "redirect:/users/"+userId;
@@ -35,10 +33,24 @@ public class AccountController {
 	public String getAccountFromUser(ModelMap model, @PathVariable Long accountId) {
 		System.out.println("ACCOUNT_ID: "+accountId);
 		Account account = accountService.findAccountById(accountId);
-//		String accountName = account.getAccountName();
 		User user = account.getUsers().get(0);
 		model.put("account", account);
 		model.put("user", user);
 		return "account";
+	}
+	
+	@PostMapping("users/{userId}/accounts/{accountId}")
+	public String changeUserAccountName(@PathVariable Long userId, @PathVariable Long accountId, Account account) {
+		
+		System.out.println(account.getAccountName());
+		
+		account.setAccountName(account.getAccountName());
+		
+		accountService.saveAccount(account);
+		
+		userService.saveUser(userService.findById(userId));
+
+		
+		return "redirect:/users/"+userId+"/accounts/"+accountId;
 	}
 }
